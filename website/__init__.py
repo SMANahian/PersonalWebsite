@@ -1,18 +1,73 @@
 import os
-from flask import Flask, render_template
+from urllib.parse import urlparse
+from flask import Flask, render_template, make_response, send_from_directory, request
 from .main_routes import main_routes_blueprint
 
 
 def create_app():
-    app = Flask(
+    webapp = Flask(
         __name__,
-        template_folder = os.path.join("front_end", "pages"),
-        static_folder = os.path.join("front_end", "assets"),
+        template_folder=os.path.join("front_end", "pages"),
+        static_folder=os.path.join("front_end", "assets"),
     )
-    
-    app.register_blueprint(main_routes_blueprint, url_prefix='/')
-    @app.errorhandler(404)
-    def page_not_found(e):
-        return render_template('404.html'), 404
-    
-    return app
+
+    webapp.register_blueprint(main_routes_blueprint, url_prefix='/')
+
+    @webapp.route("/sitemap")
+    @webapp.route("/sitemap/")
+    @webapp.route("/sitemap.xml")
+    def sitemap():
+        host_components = urlparse(request.host_url)
+        host_base = (host_components.scheme if 1 == 2 else "https") + "://" + host_components.netloc
+
+        static_urls = list()
+        for rule in webapp.url_map.iter_rules():
+            if not (
+                str(rule).startswith("/sitemap")
+                or str(rule).startswith("/favicon")
+                or str(rule).startswith("/assets")
+                or str(rule).startswith("/robots.txt")
+                or str(rule).startswith("/google44423c6d3d4f861b.html")
+            ):
+                static_urls.append(
+                    {
+                        "loc": f"{host_base}{str(rule)}"
+                    }
+                )
+
+        xml_sitemap = render_template(
+            "public/sitemap.xml",
+            static_urls=static_urls
+        )
+        response = make_response(xml_sitemap)
+        response.headers["Content-Type"] = "application/xml"
+
+        return response
+
+    @webapp.route("/favicon")
+    @webapp.route("/favicon/")
+    @webapp.route("/favicon.ico")
+    def favicon():
+        return send_from_directory(
+            os.path.join(webapp.root_path, 'front_end', 'assets', 'images'),
+            'favicon.ico',
+            mimetype='image/vnd.microsoft.icon'
+        )
+
+    @webapp.route("/robots.txt")
+    def robot_txt_file():
+        return send_from_directory(
+            os.path.join(webapp.root_path, 'front_end', 'pages', 'public'),
+            'robots.txt',
+            mimetype='text/txt'
+        )
+
+    @webapp.route("/google44423c6d3d4f861b.html")
+    def google_site_verification():
+        return render_template("public/google_site_verification.html")
+
+    @webapp.errorhandler(404)
+    def page_not_found(error):
+        return render_template("main/404.html"), 404
+
+    return webapp
