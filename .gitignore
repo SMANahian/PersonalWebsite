@@ -129,6 +129,12 @@ dmypy.json
 .pyre/
 
 
+
+
 # Custom
+.idea/
 ngrok.exe
 cloudflared.exe
+pyproject.toml
+poetry.lock
+localtunnel.cmd
