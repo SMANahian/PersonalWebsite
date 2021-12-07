@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        {% block head %}
-        <!-- Regular metadata -->
-        <meta charset="utf-8" />
+        {% block head %}<!-- Regular metadata -->
+        <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible"                          content="IE=edge" />
         <meta name='viewport'                                       content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' />
 
         <!-- Title -->
-        <title> {% block title %}S.M.A Nahian | Personal webpage{% endblock %} </title>
+        <title>{% block title %}Home | S.M.A Nahian{% endblock %}</title>
 
         <!-- Info metadata -->
         <meta name="author"                                         content="S.M.A Nahian" />
@@ -23,41 +22,34 @@
         <meta property="og:title"                                   content="{{ self.title() }}" />
         <meta property="og:site_name"                               content="{% block sitename %}Personal Webpage{% endblock %}" />
         
-        {% block imageMeta %}
-        <meta property="og:image"                                   content="{% block backgroundImage %}/assets/images/main-background.jpg{% endblock %}" />
+        {% block imageMeta %}<meta property="og:image"                                   content="{% block backgroundImage %}/assets/images/main-background.jpg{% endblock %}" />
         <meta property="og:image:type"                              content="image/jpg">
         <meta property="og:image:width"                             content="1200" />
-        <meta property="og:image:height"                            content="630" />
-        {% endblock %}
-
-        {% block extraMeta %}
-        {% endblock %}
+        <meta property="og:image:height"                            content="630" />{% endblock %}
+        {% block extraMeta %}{% endblock %}
 
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
         <!-- Google fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Marck+Script&family=Open+Sans&family=Poppins&family=Roboto&family=Kaushan+Script&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Marck+Script&family=Open+Sans&family=Poppins&family=Roboto&family=Kaushan+Script&family=Oswald&family=Roboto+Condensed&family=Source+Sans+Pro&display=swap" rel="stylesheet">
+        
         <!-- Fontawesome -->
         <script src="https://kit.fontawesome.com/eb08ea27d3.js" crossorigin="anonymous"></script>
 
+        <!-- Google verification -->
+        <meta name="google-site-verification" content="defaHfi6lUSY1tWM7nyq0jMkv_rm4XDpxci4L_Lue7Y" />
+
         <!-- Additional files -->
-        <link   href="{% block icon %}/assets/images/icon.jpg{% endblock %}"            rel="shortcut icon" type="image/jpg" />
-        <link   href="{{ self.icon() }}"                                                rel="icon" sizes="192x192" type="image/jpg" />
+        <link   href="{% block icon %}/favicon.ico{% endblock %}"                       rel="shortcut icon" type="image/ico" />
+        <link   href="{{ self.icon() }}"                                                rel="icon" sizes="192x192" type="image/ico" />
         <link   href="{{ self.icon() }}"                                                rel="fluid-icon" title="S.M.A Nahian" />
-        <link   href="{{ self.icon() }}"                                                rel="mask-icon" type="image/jpg" />
-        <link   href="{{ self.icon() }}"                                                rel="alternate icon" type="image/jpg" />
+        <link   href="{{ self.icon() }}"                                                rel="mask-icon" type="image/ico" />
+        <link   href="{{ self.icon() }}"                                                rel="alternate icon" type="image/ico" />
         <link   href="{% block mainstyle %}/assets/styles/global.css{% endblock %}"     rel="stylesheet" />
         <script src="{% block mainjquery %}/assets/scripts/globaljquery.js{% endblock %}"> </script>
         <script src="{% block mainjavascript %}/assets/scripts/globaljavascript.js{% endblock %}"> </script>
-        {% block extraFile %}
-        {% endblock %}
-        {% block styletag %}
-        {% endblock %}
-        {% block scripttag %}
-        {% endblock %}
-        {% endblock %}
+        {% block extraFile %}{% endblock %}{% block styletag %}{% endblock %}{% block scripttag %}{% endblock %}{% endblock %}
     </head>
 
 
@@ -65,34 +57,29 @@
     <body>
         <header id="header">
             <nav class="navbar">
-                {% block navbar %}
-                <a href="/" class="nav-logo">S.M.A Nahian</a>
+                {% block navbar %}<a href="/" class="nav-logo">S.M.A Nahian</a>
                 <ul class="nav-menu">
-                    {% block navitems %}
-                    <li class="nav-item">
-                        <a href="#home" class="nav-link">Home</a>
+                    {% block navitems %}<li class="nav-item">
+                        <a href="/#home" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#about" class="nav-link">About</a>
+                        <a href="/#about" class="nav-link">About</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#contact" class="nav-link">Contact</a>
-                    </li>
-                    {% endblock %}
+                        <a href="/#contact" class="nav-link">Contact</a>
+                    </li>{% endblock %}
                 </ul>
-                <button class="hamburger" id="hamburger">
+                <div class="hamburger" id="hamburger">
                     <span class="bar"></span>
                     <span class="bar"></span>
                     <span class="bar"></span>
-                </button>
-                {% endblock %}
+                </div>{% endblock %}
             </nav>
         </header>
 
         <section class="container" {% block containerID %}{% endblock %}>
             <main {% block mainID %}{% endblock %}>
-                {% block main %}
-                {% endblock %}
+                {% block main %}{% endblock %}
             </main>
 
 
@@ -100,21 +87,19 @@
                 <div id="contact">
                     <h3>Contact me</h3>
                     <br />
-                    {% block contact %}
-                    <div id="contact-list">
+                    {% block contact %}<div id="contact-list">
                         <ul id="social-items">
                             <li>
-                                <a href="/"><i class="fab fa-telegram"></i></a>
+                                <a href="https://t.me/SMA_Nahian"><i class="fab fa-telegram"></i></a>
                             </li>
                             <li>
-                                <a href="/"><i class="fas fa-envelope-square"></i></i></a>
+                                <a href="mailto:smanahian123@gmail.com"><i class="fas fa-envelope-square"></i></i></a>
                             </li>
                             <li>
-                                <a href="/"><i class="fab fa-github"></i></a>
+                                <a href="https://github.com/SMANahian"><i class="fab fa-github"></i></a>
                             </li>
                         </ul>
-                    </div>
-                    {% endblock %}
+                    </div>{% endblock %}
                 </div>
 
                 <div id="copyright">
