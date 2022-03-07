@@ -13,6 +13,8 @@ def create_app():
 
     webapp.register_blueprint(main_routes_blueprint, url_prefix='/')
 
+        
+    
     @webapp.route("/sitemap")
     @webapp.route("/sitemap/")
     @webapp.route("/sitemap.xml")
@@ -23,7 +25,8 @@ def create_app():
         static_urls = list()
         for rule in webapp.url_map.iter_rules():
             if not (
-                str(rule).startswith("/sitemap")
+                str(rule).startswith("/fun")
+                or str(rule).startswith("/sitemap")
                 or str(rule).startswith("/favicon")
                 or str(rule).startswith("/assets")
                 or str(rule).startswith("/robots.txt")
@@ -36,7 +39,7 @@ def create_app():
                 )
 
         xml_sitemap = render_template(
-            "public/sitemap.xml",
+            "public/sitemap.xml", 
             static_urls=static_urls
         )
         response = make_response(xml_sitemap)
@@ -69,5 +72,7 @@ def create_app():
     @webapp.errorhandler(404)
     def page_not_found(error):
         return render_template("main/404.html"), 404
+    
 
     return webapp
+
